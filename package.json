@@ -1,0 +1,27 @@
+{
+  "name": "weather-events",
+  "version": "0.1.0",
+  "description": "Weather Event Repository for Weather Simulations",
+  "scripts": {
+    "deploy": "gh-pages -d events",
+    "test": "jsonlint --quiet events/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/concord-consortium/weather-events.git"
+  },
+  "author": "Concord Consortium",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/concord-consortium/weather-events/issues"
+  },
+  "homepage": "https://github.com/concord-consortium/weather-events#readme",
+  "dependencies": {
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^20.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.0.0",
+    "jsonlint": "^1.6.2"
+  }
+}
