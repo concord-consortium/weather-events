@@ -80,7 +80,7 @@ Once the authorization token has been written, this (or any other similar) scrip
 
 Converts a set of Weather Event data in the form of a Google Sheets document with one weather station per sheet into a JSON formatted weather event suitable for use in Weather Simulations. Patterned after the Google Sheets API [Node.js Quickstart](https://developers.google.com/sheets/api/quickstart/nodejs). It requires the same authentication steps described above for `quickstart.js`.
 
-Once the authorization token has been written, the script can be run without manual authorization steps. Currently, the `sheet-to-json.js` script converts a hard-coded Google Sheets document with a command like the following:
+Once the authorization token has been written, the script can be run without manual authorization steps. The `sheet-to-json.js` script converts a Google Sheets document with a command like the following:
 ```
 node scripts/sheet-to-json.js <spreadsheetId> events/<destination-name>.json
 ```
