@@ -157,8 +157,9 @@ function retrieveStations(auth, sheetRanges, stations) {
             const numValue = Number(value),
                   resultValue = isNaN(numValue) ? value : numValue;
             switch (colNames[index].toLowerCase()) {
-              case 'lat': station.lat = resultValue; break;
-              case 'long': station.long = resultValue; break;
+              // take the first non-null latitude/longitude
+              case 'lat': if (station.lat == null) station.lat = resultValue; break;
+              case 'long': if (station.long == null) station.long = resultValue; break;
               case 'timestr': break;  // skip because it's redundant with "time" column
               default: row.push(resultValue); break;
             }
