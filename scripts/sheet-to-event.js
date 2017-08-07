@@ -156,7 +156,7 @@ function retrieveStations(auth, sheetRanges, stations) {
           rowValues.forEach(function(value, index) {
             const numValue = Number(value),
                   resultValue = isNaN(numValue) ? value : numValue;
-            switch (colNames[index]) {
+            switch (colNames[index].toLowerCase()) {
               case 'lat': station.lat = resultValue; break;
               case 'long': station.long = resultValue; break;
               case 'timestr': break;  // skip because it's redundant with "time" column
