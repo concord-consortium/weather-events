@@ -164,7 +164,7 @@ function retrieveStations(auth, sheetRanges, stations) {
               default: row.push(resultValue); break;
             }
           });
-          station.cols = colNames.filter(name => ['lat','long','timestr'].indexOf(name) < 0);
+          station.cols = colNames.filter(name => ['lat','long','timestr'].indexOf(name.toLowerCase()) < 0);
           station.rows.push(row);
         }
       });
