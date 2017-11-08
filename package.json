@@ -4,7 +4,9 @@
   "description": "Weather Event Repository for Weather Simulations",
   "scripts": {
     "deploy": "gh-pages -d events",
-    "test": "jsonlint --quiet events/*"
+    "lint": "jsonlint --quiet events/*",
+    "test": "jest",
+    "watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -19,10 +21,12 @@
   "dependencies": {
     "commander": "^2.11.0",
     "google-auth-library": "^0.10.0",
-    "googleapis": "^20.1.0"
+    "googleapis": "^20.1.0",
+    "moment": "^2.19.1"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
+    "jest": "^21.2.1",
     "jsonlint": "^1.6.2"
   }
 }
