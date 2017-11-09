@@ -87,7 +87,7 @@ class Converter {
     result.id = this.getStationName(row, column);
     result.index = row * this.numColumns + column;
     result.lat = row * this.latIncrement + this.latOffset;
-    result.long = row * this.longIncrement + this.longOffset;
+    result.long = column * this.longIncrement + this.longOffset;
     result.cols = COLUMN_DEFS;
     result.rows = this.rowsForCell(row, column);
     return result;
