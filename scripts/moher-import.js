@@ -19,10 +19,10 @@ class Converter {
     this.data = this.sourceData.data
     this.timeIncrementMinutes = minuteInterval;
     this.timeOffset = moment(startTimeS,TIME_FORMAT);
-    this.latIncrement = 1;
-    this.latOffset = this.latIncrement / 2.0;
+    this.latIncrement = -1;
+    this.latOffset = 42;
     this.longIncrement = 1;
-    this.longOffset = this.longIncrement / 2.0;
+    this.longOffset = 74;
   };
 
   get frames() {
