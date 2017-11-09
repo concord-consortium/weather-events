@@ -14,11 +14,11 @@ const decodeValue = function (name,data) {
 }
 
 class Converter {
-  constructor(jsonString) {
-    this.sourceData = jsonString;
+  constructor(data,startTimeS="3/31/17 17:55", minuteInterval=60) {
+    this.sourceData = data;
     this.data = this.sourceData.data
-    this.timeIncrement = 60;
-    this.timeOffset = moment("3/31/17 17:55",TIME_FORMAT);
+    this.timeIncrementMinutes = minuteInterval;
+    this.timeOffset = moment(startTimeS,TIME_FORMAT);
     this.latIncrement = 1;
     this.latOffset = this.latIncrement / 2.0;
     this.longIncrement = 1;
@@ -51,7 +51,7 @@ class Converter {
   }
 
   timeFor(index) {
-    return this.timeOffset.add(index * this.timeIncrement, 'minute').format(TIME_FORMAT);
+    return new moment(this.timeOffset).add(index * this.timeIncrementMinutes, 'minute').format(TIME_FORMAT);
   }
 
   dataRowFor(index, data) {
