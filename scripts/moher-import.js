@@ -103,9 +103,9 @@ class Converter {
     return results;
   }
 
-  writeJsonFile(fileName) {
+  getJson() {
     const data = this.extractStations();
-    console.log(JSON.stringify(data,null,2));
+    return JSON.stringify(data,null,2);
   }
 }
 

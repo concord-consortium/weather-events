@@ -88,3 +88,13 @@ or
 ```
 node scripts/sheet-to-json.js -s <spreadsheetId> events/<destination-name>.json
 ```
+
+
+## Importing simplified weather events ##
+2017-11-13 Recently we started recieving data in a simplified JSON format in a row, column indexed array.
+(see `./test/simple.json` for an example of the data format.
+
+To translate this format into our older format, run `./scripts/import.js` from the command line.
+If you run it with supplying any arguments it will prompt for required params. To get a list of
+parameters and help try `./scripts/import.js --help`.
+

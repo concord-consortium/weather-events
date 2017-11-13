@@ -20,9 +20,11 @@
   "homepage": "https://github.com/concord-consortium/weather-events#readme",
   "dependencies": {
     "commander": "^2.11.0",
+    "glob-fs": "^0.1.7",
     "google-auth-library": "^0.10.0",
     "googleapis": "^20.1.0",
-    "moment": "^2.19.1"
+    "moment": "^2.19.1",
+    "prompt-sync": "^4.1.5"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",

@@ -2,10 +2,6 @@ const jsonData = require('./simple.json');
 const {Converter, decodeValue} = require('../scripts/moher-import.js');
 
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(1 + 2).toBe(3);
-});
-
 describe("The structure of imported data", () =>{
   const data = jsonData.data;
   test("its an object", ()=> {
@@ -15,7 +11,7 @@ describe("The structure of imported data", () =>{
     expect(data.length).toBe(2);
   })
 
-  test("Test the general structure of our input data", () => {
+  test("It has frames, and rows, and columns", () => {
     let frame, row, column = 0;
     for(frame =0; frame < data.length; frame++) {
       for(row = 0; row < data[frame].length; row++)  {
@@ -29,22 +25,22 @@ describe("The structure of imported data", () =>{
   });
 });
 
-describe("The Converter", () => {
+describe("The Converter methods", () => {
   let converter = new Converter(jsonData);
 
-  test("numFrames", () => {
+  test("#numFrames identifies 2 frames", () => {
     expect(converter.numFrames).toBe(2);
   });
 
-  test("numRows", () => {
+  test("#numRows identifies 2 rows", () => {
     expect(converter.numRows).toBe(2);
   });
 
-  test("numColumns", () => {
+  test("#numColumns identifies 2 columns", () => {
     expect(converter.numRows).toBe(2);
   });
 
-  test("rowsForCell", () => {
+  test("#rowsForCell returns the frames for that cell.", () => {
     let row = 0;
     let column = 0;
     let result = converter.rowsForCell(row,column);
@@ -55,7 +51,7 @@ describe("The Converter", () => {
     expect(decodeValue('time',result[1])).toBe("03/31/17 18:55");
   });
 
-  test("extractStation", () => {
+  test("#extractStation gets all the frames for a station", () => {
     const result = converter.extractStation(0,0);
     expect(result.id).toBe("a-1");
     expect(result.cols).toHaveLength(5);
@@ -67,9 +63,8 @@ describe("The Converter", () => {
     expect(converter.extractStation(1,1).id).toBe("b-2");
     expect(converter.extractStation(1,0).id).toBe("b-1");
   });
-  test("extractStations", () => {
+  test("#extractStations extracts all the frames for all 4 stations", () => {
     const result = converter.extractStations();
     expect(result).toHaveLength(4);
-    converter.writeJsonFile("boo");
   });
 });
