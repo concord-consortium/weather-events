@@ -46,7 +46,7 @@ class Converter {
   }
 
   getStationName(row, column) {
-    const colName = String.fromCharCode(97 + row);
+    const colName = String.fromCharCode(97 + column);
     return `${colName}-${row+1}`
   }
 
