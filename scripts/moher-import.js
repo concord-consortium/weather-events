@@ -6,7 +6,7 @@ const COLUMN_DEFS = [
   "wind_speed",
   "time"
 ];
-const TIME_FORMAT = "MM/DD/YY kk:mm";
+const TIME_FORMAT = "MM/DD/YYYY kk:mm";
 
 const decodeValue = function (name,data) {
   const index = COLUMN_DEFS.indexOf(name);
@@ -14,11 +14,11 @@ const decodeValue = function (name,data) {
 }
 
 class Converter {
-  constructor(data,startTimeS="3/31/17 17:55", minuteInterval=60) {
+  constructor(data, startTimeS = "1/1/2018 10:00", timeStep = 5) {
     this.sourceData = data;
     this.data = this.sourceData.data
-    this.timeIncrementMinutes = minuteInterval;
-    this.timeOffset = moment(startTimeS,TIME_FORMAT);
+    this.timeIncrementMinutes = timeStep;
+    this.timeOffset = moment(startTimeS, TIME_FORMAT);
     this.latIncrement = -1;
     this.latOffset = 42;
     this.longIncrement = 1;
@@ -46,8 +46,8 @@ class Converter {
   }
 
   getStationName(row, column) {
-    const rowName = String.fromCharCode(97 + row);
-    return `${rowName}-${column+1}`
+    const colName = String.fromCharCode(97 + row);
+    return `${colName}-${row+1}`
   }
 
   timeFor(index) {

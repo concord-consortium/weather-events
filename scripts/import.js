@@ -8,10 +8,10 @@ const jsonFiles = glob.readdirSync('**/*.json');
 
 const cliProgram = require('commander')
   .version('0.1.0')
-  .option('-i, --input <fileName>', 'Input file eg: `import.json`')
+  .option('-i, --input <fileName>', 'Input file eg: `day-1-src.json`')
   .option('-o, --output <fileName>', 'Output file eg: `day-1-data.json`')
-  .option('-t, --time <12/23/70>', 'start Time: eg: `12/23/70`')
-  .option('-i, --interval <60>', 'interval between datapoints in minutes')
+  .option('-t, --time <1/1/2018>', 'start Time: eg: `1/1/2018 10:00`')
+  .option('-s, --step <5>', 'interval between datapoints in minutes')
   .parse(process.argv);
 
 const complete = (starting) => {
@@ -29,11 +29,11 @@ function getOutFile(inName) {
 }
 
 function getTime() {
-  return prompt("Start date: ", "12/23/70");
+  return prompt("Start date/time (1/1/2018 10:00): ", "1/1/2018 10:00");
 }
 
 function getInterval() {
-  return parseInt(prompt("Minutes / frame: ", "60"));
+  return parseInt(prompt("Minutes/frame (5): ", "5"));
 }
 
 const input    = cliProgram.input    || getInputFile();
