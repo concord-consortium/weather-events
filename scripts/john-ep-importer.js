@@ -25,7 +25,8 @@ const getTimeForFile = (filename) => {
 
 const outFileName = (filename) => {
   const epMatcher = RegExp(/(^.*(NE|AK)_EP(1|2))/)
-  return `${epMatcher.exec(filename)[0]}-out.json`
+  const name = _.last(filename.split("/"))
+  return `events/${epMatcher.exec(name)[0]}.json`
 }
 
 // Read the xlsx files.
