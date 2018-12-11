@@ -13,10 +13,17 @@ const COLUMN_DEFS = [
   "time"
 ]
 
+const COLUMN_INDEXES = {
+  temp: 0,
+  precip: 1,
+  moisture: 2,
+  time: 3
+};
+
 const getTimeForFile = (filename) => {
   const timeMatcher = RegExp(/(\d+)(am|pm)/,'i')
   const matches=  timeMatcher.exec(filename)
-  const hour = matches[0]
+  const hour = matches[1]
   const amPm = matches[2]
   const hours = parseInt(hour,10) + (amPm == 'pm' ? 12 : 0)
   const date = new Date(Date.UTC('2013', '4', '15', hours))
@@ -43,33 +50,6 @@ glob("./john-events/**/*_EP*.xlsx", null, function (er, files) {
     outFiles[outfile] = outFiles[outfile].concat(json)
   })
 
-  const stations = {}
-  let stationIndex = 1
-  const keyForDatum = (datum) => {
-    const startLat = 40
-    const startLon = -77
-    const columnNumber = datum.lat - startLat
-    const rowNumber = datum.lon - startLon
-    const column = String.fromCharCode(97 + columnNumber);
-    return `${column}-${rowNumber + 1}`
-  }
-  const createStation = (key, datum) => {
-    stations[key] = {
-      id: key,
-      index: stationIndex,
-      lat: datum.lat,
-      long: datum.lon,
-      cols: COLUMN_DEFS,
-      rows: []
-    }
-    stationIndex++
-    return stations[key]
-  }
-  const stationForDatum = (datum) => {
-    const key = keyForDatum(datum)
-    return stations[key] || createStation(key, datum)
-  }
-
   const parsePrecip = (precipString) => {
     const pString = precipString.toLowerCase()
     switch (pString) {
@@ -87,20 +67,59 @@ glob("./john-events/**/*_EP*.xlsx", null, function (er, files) {
     }
   }
 
-  const addDatum = (datum) => {
-    // "air_temperature", "moisture", "precipitation_amount_hourly", "time"
-    stationForDatum(datum).rows.push([
-      datum.Temperature,
-      parsePrecip(datum.Precipitation || "none"),
-      datum.Moisture || 0,
-      datum.date
-    ])
-  }
+
   // Write the json files
   const outFileNames = _.mapValues(outFiles, (values) => {
+    const stations = {}
+    let stationIndex = 1
+    const keyForDatum = (datum) => {
+      const startLat = 40
+      const startLon = -77
+      const columnNumber = datum.lat - startLat
+      const rowNumber = datum.lon - startLon
+      const column = String.fromCharCode(97 + columnNumber);
+      return `${column}-${rowNumber + 1}`
+    }
+
+    const createStation = (key, datum) => {
+      stations[key] = {
+        id: key,
+        index: stationIndex,
+        lat: datum.lat,
+        long: datum.lon,
+        cols: COLUMN_DEFS,
+        rows: []
+      }
+      stationIndex++
+      return stations[key]
+    }
+
+    const stationForDatum = (datum) => {
+      const key = keyForDatum(datum)
+      return stations[key] || createStation(key, datum)
+    }
+
+    const addDatum = (datum) => {
+      // "air_temperature", "moisture", "precipitation_amount_hourly", "time"
+      stationForDatum(datum).rows.push([
+        datum.Temperature,
+        parsePrecip(datum.Precipitation || "none"),
+        datum.Moisture || 0,
+        datum.date
+      ])
+    }
+
     _.forEach(values, (v) => {
         addDatum(v)
       })
+
+    _.forEach(stations, (s) => {
+      const newRows = _.orderBy(s.rows, (row) => {
+        const timeStr = row[COLUMN_INDEXES.time]
+        return moment.utc(timeStr, "M/D/YYYY H:m")
+      })
+      s.rows = newRows
+    })
     return _.values(stations)
   })
 
@@ -110,7 +129,7 @@ glob("./john-events/**/*_EP*.xlsx", null, function (er, files) {
       fs.writeFileSync(fileName, JSON.stringify(value, null, 2))
     }
     catch (e) {
-        console.log(e)
+        console.error(e)
         console.trace()
     }
   })
