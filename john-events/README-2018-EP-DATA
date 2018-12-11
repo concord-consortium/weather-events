@@ -1,0 +1,20 @@
+
+This data comes from these sources:
+
+AK: https://drive.google.com/drive/folders/1NTAxIj-aCkiUT7ySCNIJdCAfdhkaI_OG
+
+NE: https://drive.google.com/drive/folders/1vZoC9RDH6Jv1PrYUpGzRUQZyMpwu89b1
+
+The data provided is in 5 timestamped spreadsheets. The time stamp is indicated in the filename EG: 'AK_EP2_3pm.xlsx'.
+
+Script:
+* glob filename `*_(TIMESTAMP).xlsx`
+* Convert sheets to Arrays of objects.
+* Collect the objects from different files
+* Write the EPs out in JSON file format.
+
+
+Uses:
+ https://www.npmjs.com/package/xlsx
+
+and lodash.
