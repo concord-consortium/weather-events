@@ -75,8 +75,8 @@ glob("./john-events/**/*_EP*.xlsx", null, function (er, files) {
     const keyForDatum = (datum) => {
       const startLat = 40
       const startLon = -77
-      const columnNumber = datum.lat - startLat
-      const rowNumber = datum.lon - startLon
+      const columnNumber = datum.lon - startLon
+      const rowNumber = datum.lat - startLat
       const column = String.fromCharCode(97 + columnNumber);
       return `${column}-${rowNumber + 1}`
     }
