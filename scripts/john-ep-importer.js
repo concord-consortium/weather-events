@@ -101,7 +101,7 @@ glob("./john-events/**/*_EP*.xlsx", null, function (er, files) {
     _.forEach(values, (v) => {
         addDatum(v)
       })
-    return stations
+    return _.values(stations)
   })
 
   _.forEach(outFileNames, (value, fileName) => {
