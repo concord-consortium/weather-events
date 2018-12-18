@@ -78,7 +78,7 @@ glob("./john-events/**/*_EP*.xlsx", null, function (er, files) {
       const columnNumber = datum.lon - startLon
       const rowNumber = datum.lat - startLat
       const column = String.fromCharCode(97 + columnNumber);
-      return `${column}-${rowNumber + 1}`
+      return `${column}-${7 - rowNumber}`
     }
 
     const createStation = (key, datum) => {
