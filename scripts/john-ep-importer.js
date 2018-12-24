@@ -26,7 +26,7 @@ const getTimeForFile = (filename) => {
   const hour = matches[1]
   const amPm = matches[2]
   const hours = parseInt(hour,10) + (amPm == 'pm' ? 12 : 0)
-  const date = new Date(Date.UTC('2013', '4', '15', hours))
+  const date = new Date(2013, 4, 15, hours)
   return moment(date).format(TIME_FORMAT)
 }
 
